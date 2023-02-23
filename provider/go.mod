@@ -1,4 +1,4 @@
-module github.com/pulumi/pulumi-xyz
+module github.com/artm-devsecops/pulumi-azk8sprivate
 
 go 1.17
 

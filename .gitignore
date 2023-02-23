@@ -1,7 +1,6 @@
 bin
 VERSION
 .pulumi
-sdk/**/bin/
 **/obj/
 **/node_modules/
 vendor/

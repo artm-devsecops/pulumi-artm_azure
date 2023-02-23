@@ -18,14 +18,14 @@ from pulumi import Inputs, ResourceOptions
 from pulumi.provider import ConstructResult
 import pulumi.provider as provider
 
-import xyz_provider
-from xyz_provider.staticpage import StaticPage, StaticPageArgs
+import azk8sprivate_provider
+from azk8sprivate_provider.aksprivatecluster import AksPrivateCluster, AksPrivateClusterArgs
 
 
 class Provider(provider.Provider):
 
     def __init__(self) -> None:
-        super().__init__(xyz_provider.__version__, xyz_provider.__schema__)
+        super().__init__(azk8sprivate_provider.__version__, azk8sprivate_provider.__schema__)
 
     def construct(self,
                   name: str,
@@ -33,7 +33,7 @@ class Provider(provider.Provider):
                   inputs: Inputs,
                   options: Optional[ResourceOptions] = None) -> ConstructResult:
 
-        if resource_type == 'xyz:index:StaticPage':
+        if resource_type == 'azk8sprivate:index:AksPrivateCluster':
             return _construct_static_page(name, inputs, options)
 
         raise Exception(f'Unknown resource type {resource_type}')
@@ -44,7 +44,7 @@ def _construct_static_page(name: str,
                            options: Optional[ResourceOptions] = None) -> ConstructResult:
 
     # Create the component resource.
-    static_page = StaticPage(name, StaticPageArgs.from_inputs(inputs), dict(inputs), options)
+    static_page = AksPrivateCluster(name, AksPrivateClusterArgs.from_inputs(inputs), dict(inputs), options)
 
     # Return the component resource's URN and outputs as its state.
     return provider.ConstructResult(

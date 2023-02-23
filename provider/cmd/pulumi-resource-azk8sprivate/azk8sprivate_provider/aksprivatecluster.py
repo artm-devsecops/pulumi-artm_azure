@@ -16,64 +16,69 @@ import json
 from typing import Optional
 
 from pulumi import Inputs, ResourceOptions
-from pulumi_aws import s3
+#from pulumi_aws import s3
 import pulumi
 
 
-class StaticPageArgs:
+class AksPrivateClusterArgs:
 
     index_content: pulumi.Input[str]
     """The HTML content for index.html."""
 
     @staticmethod
-    def from_inputs(inputs: Inputs) -> 'StaticPageArgs':
-        return StaticPageArgs(index_content=inputs['indexContent'])
+    def from_inputs(inputs: Inputs) -> 'AksPrivateClusterArgs':
+        return AksPrivateClusterArgs(index_content=inputs['indexContent'])
 
     def __init__(self, index_content: pulumi.Input[str]) -> None:
         self.index_content = index_content
 
 
-class StaticPage(pulumi.ComponentResource):
-    bucket: s3.Bucket
+class AksPrivateCluster(pulumi.ComponentResource):
+    bucket: pulumi.Output[str]
     website_url: pulumi.Output[str]
 
     def __init__(self,
                  name: str,
-                 args: StaticPageArgs,
+                 args: AksPrivateClusterArgs,
                  props: Optional[dict] = None,
                  opts: Optional[ResourceOptions] = None) -> None:
 
-        super().__init__('xyz:index:StaticPage', name, props, opts)
+        super().__init__('azk8sprivate:index:AksPrivateCluster', name, props, opts)
 
-        # Create a bucket and expose a website index document.
-        bucket = s3.Bucket(
-            f'{name}-bucket',
-            website=s3.BucketWebsiteArgs(index_document='index.html'),
-            opts=ResourceOptions(parent=self))
+        # # Create a bucket and expose a website index document.
+        # bucket = s3.Bucket(
+        #     f'{name}-bucket',
+        #     website=s3.BucketWebsiteArgs(index_document='index.html'),
+        #     opts=ResourceOptions(parent=self))
 
-        # Create a bucket object for the index document.
-        s3.BucketObject(
-            f'{name}-index-object',
-            bucket=bucket.bucket,
-            key='index.html',
-            content=args.index_content,
-            content_type='text/html',
-            opts=ResourceOptions(parent=bucket))
+        # # Create a bucket object for the index document.
+        # s3.BucketObject(
+        #     f'{name}-index-object',
+        #     bucket=bucket.bucket,
+        #     key='index.html',
+        #     content=args.index_content,
+        #     content_type='text/html',
+        #     opts=ResourceOptions(parent=bucket))
 
         # Set the access policy for the bucket so all objects are readable.
-        s3.BucketPolicy(
-            f'{name}-bucket-policy',
-            bucket=bucket.bucket,
-            policy=bucket.bucket.apply(_allow_getobject_policy),
-            opts=ResourceOptions(parent=bucket))
+        # s3.BucketPolicy(
+        #     f'{name}-bucket-policy',
+        #     bucket=bucket.bucket,
+        #     policy=bucket.bucket.apply(_allow_getobject_policy),
+        #     opts=ResourceOptions(parent=bucket))
 
-        self.bucket = bucket
-        self.website_url = bucket.website_endpoint
+        self.bucket = 'bucket'
+        self.website_url = 'website_url'
 
         self.register_outputs({
-            'bucket': bucket,
-            'websiteUrl': bucket.website_endpoint,
+            'bucket': 'bucket',
+            'websiteUrl': 'website_url',
         })
+        
+        # self.register_outputs({
+        #     'bucket': bucket,
+        #     'websiteUrl': bucket.website_endpoint,
+        # })
 
 
 def _allow_getobject_policy(bucket_name: str) -> str:

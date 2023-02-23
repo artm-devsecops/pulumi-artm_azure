@@ -1,7 +1,7 @@
 {
-    "name": "xyz",
+    "name": "azk8sprivate",
     "resources": {
-        "xyz:index:StaticPage": {
+        "azk8sprivate:index:AksPrivateCluster": {
             "isComponent": true,
             "inputProperties": {
                 "indexContent": {
@@ -14,7 +14,7 @@
             ],
             "properties": {
                 "bucket": {
-                    "$ref": "/aws/v4.0.0/schema.json#/resources/aws:s3%2Fbucket:Bucket",
+                    "type": "string",
                     "description": "The bucket resource."
                 },
                 "websiteUrl": {
@@ -32,16 +32,16 @@
         "csharp": {
             "packageReferences": {
                 "Pulumi": "3.*",
-                "Pulumi.Aws": "5.*"
+                "Pulumi.AzureNative": "1.*"
             }
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/pulumi/pulumi-xyz/sdk/go/xyz"
+            "importBasePath": "github.com/artm-devsecops/pulumi-azk8sprivate/sdk/go/azk8sprivate"
         },
         "nodejs": {
             "dependencies": {
-                "@pulumi/aws": "^5.0.0"
+                "@pulumi/azure-native": "^1.0.0"
             },
             "devDependencies": {
                 "typescript": "^3.7.0"
@@ -50,7 +50,7 @@
         "python": {
             "requires": {
                 "pulumi": ">=3.0.0,<4.0.0",
-                "pulumi-aws": ">=5.0.0,<6.0.0"
+                "pulumi-azure-native": ">=1.0.0,<2.0.0"
             }
         }
     }

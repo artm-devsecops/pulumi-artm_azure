@@ -16,9 +16,9 @@
 import sys
 
 import pulumi.provider
-import xyz_provider
-import xyz_provider.provider
+import azk8sprivate_provider
+import azk8sprivate_provider.provider
 
 
 if __name__ == '__main__':
-    pulumi.provider.main(xyz_provider.provider.Provider(), sys.argv[1:])
+    pulumi.provider.main(azk8sprivate_provider.provider.Provider(), sys.argv[1:])
