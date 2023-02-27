@@ -1,30 +1,59 @@
 {
-    "name": "azk8sprivate",
+    "name": "artmazure",
     "resources": {
-        "azk8sprivate:index:AksPrivateCluster": {
+        "artmazure:index:AksPrivateCluster": {
             "isComponent": true,
             "inputProperties": {
-                "indexContent": {
+                "resourceName": {
                     "type": "string",
-                    "description": "The HTML content for index.html."
+                    "description": "Name of the resources"
+                },
+                "location": {
+                    "type": "string",
+                    "description": "The location of the resources"
+                },
+                "environment": {
+                    "type": "string",
+                    "description": "The environment of the resources"
+                },
+                "suffix": {
+                    "type": "string",
+                    "description": "The suffix of the resources"
+                },
+                "address_prefix": {
+                    "type": "string",
+                    "description": "The virtual network and subnet address prefix"
                 }
             },
             "requiredInputs": [
-                "indexContent"
+                "resourceName",
+                "location",
+                "environment",
+                "suffix"
             ],
             "properties": {
-                "bucket": {
+                "location": {
                     "type": "string",
                     "description": "The bucket resource."
                 },
-                "websiteUrl": {
-                    "type": "string",
-                    "description": "The website URL."
+                "resource_group": {
+                    "$ref": "/azure-native/v1.95.0/schema.json#/resources/azure-native:resources:ResourceGroup",
+                    "description": "The resource group"
+                },
+                "virtual_network": {
+                    "$ref": "/azure-native/v1.95.0/schema.json#/resources/azure-native:network:VirtualNetwork",
+                    "description": "The virtual network"
+                },
+                "virtual_network_subnet": {
+                    "$ref": "/azure-native/v1.95.0/schema.json#/resources/azure-native:network:Subnet",
+                    "description": "The virtual network"
                 }
             },
             "required": [
-                "bucket",
-                "websiteUrl"
+                "location",
+                "resource_group",
+                "virtual_network",
+                "subnet"
             ]
         }
     },
@@ -37,7 +66,7 @@
         },
         "go": {
             "generateResourceContainerTypes": true,
-            "importBasePath": "github.com/artm-devsecops/pulumi-azk8sprivate/sdk/go/azk8sprivate"
+            "importBasePath": "github.com/artm-devsecops/pulumi-artmazure/sdk/go/artmazure"
         },
         "nodejs": {
             "dependencies": {

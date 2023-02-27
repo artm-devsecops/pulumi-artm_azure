@@ -4,8 +4,12 @@ description: A minimal Pulumi YAML program
 outputs: {}
 resources: 
   k8s:
-    type: azk8sprivate:index:AksPrivateCluster
+    type: artmazure:index:AksPrivateCluster
     properties:
-      indexContent: test
+      environment: dev
+      location: canadacentral
+      resourceName: testpulumi
+      suffix: "001"
+      address_prefix: "10.0.0.0/16"
 variables: {}
 

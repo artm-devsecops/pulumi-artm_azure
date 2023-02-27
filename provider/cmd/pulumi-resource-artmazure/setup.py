@@ -2,7 +2,7 @@ from distutils.core import setup
 import os.path
 
 
-PKG = 'azk8sprivate_provider'
+PKG = 'artmazure_provider'
 
 
 def read_version():
@@ -16,7 +16,7 @@ setup(
     version=read_version(),
     description='Azure AKS Private Cluster Pulumi Provider',
     packages=[PKG],
-    package_data={PKG: ['py.typed', 'VERSION', 'schema.json']},
+    package_data={PKG: ['py.typed', 'VERSION', 'schema.json', 'utilities/*.py']},
     zip_safe=False,
     install_requires=[
         'pulumi>=3.0.0',

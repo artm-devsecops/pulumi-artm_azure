@@ -15,10 +15,15 @@
 
 import sys
 
-import pulumi.provider
-import azk8sprivate_provider
-import azk8sprivate_provider.provider
+import pulumi
+from artmazure_provider.aksprivatecluster import AksPrivateCluster, AksPrivateClusterArgs
 
+args = AksPrivateClusterArgs(
+    environment="dev",
+    location="canadacentral",
+    resource_name="testpulumi",
+    suffix="001"
+)
 
-if __name__ == '__main__':
-    pulumi.provider.main(azk8sprivate_provider.provider.Provider(), sys.argv[1:])
+res = AksPrivateCluster("aks-private-cluster", 
+                        args=args, opts=pulumi.ResourceOptions(provider="artmazure"))

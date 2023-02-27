@@ -18,14 +18,14 @@ from pulumi import Inputs, ResourceOptions
 from pulumi.provider import ConstructResult
 import pulumi.provider as provider
 
-import azk8sprivate_provider
-from azk8sprivate_provider.aksprivatecluster import AksPrivateCluster, AksPrivateClusterArgs
+import artmazure_provider
+from artmazure_provider.aksprivatecluster import AksPrivateCluster, AksPrivateClusterArgs
 
 
 class Provider(provider.Provider):
 
     def __init__(self) -> None:
-        super().__init__(azk8sprivate_provider.__version__, azk8sprivate_provider.__schema__)
+        super().__init__(artmazure_provider.__version__, artmazure_provider.__schema__)
 
     def construct(self,
                   name: str,
@@ -33,23 +33,24 @@ class Provider(provider.Provider):
                   inputs: Inputs,
                   options: Optional[ResourceOptions] = None) -> ConstructResult:
 
-        if resource_type == 'azk8sprivate:index:AksPrivateCluster':
-            return _construct_static_page(name, inputs, options)
+        if resource_type == 'artmazure:index:AksPrivateCluster':
+            return _construct_aks_private_cluster(name, inputs, options)
 
         raise Exception(f'Unknown resource type {resource_type}')
 
 
-def _construct_static_page(name: str,
+def _construct_aks_private_cluster(name: str,
                            inputs: Inputs,
                            options: Optional[ResourceOptions] = None) -> ConstructResult:
 
     # Create the component resource.
-    static_page = AksPrivateCluster(name, AksPrivateClusterArgs.from_inputs(inputs), dict(inputs), options)
+    k8s = AksPrivateCluster(name, AksPrivateClusterArgs.from_inputs(inputs), dict(inputs), options)
 
     # Return the component resource's URN and outputs as its state.
     return provider.ConstructResult(
-        urn=static_page.urn,
+        urn=k8s.urn,
         state={
-            'bucket': static_page.bucket,
-            'websiteUrl': static_page.website_url
+            'location': k8s.location,
+            'virtual_network': k8s.virtual_network,
+            'resource_group': k8s.resource_group	
         })

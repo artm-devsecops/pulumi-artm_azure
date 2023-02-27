@@ -1,4 +1,4 @@
-module github.com/artm-devsecops/pulumi-azk8sprivate
+module github.com/artm-devsecops/pulumi-artmazure
 
 go 1.17
 

@@ -1,0 +1,6 @@
+name: pulumi-python
+runtime:
+  name: python
+  options:
+    virtualenv: ../../../bin/venv
+description: A minimal Python Pulumi program
